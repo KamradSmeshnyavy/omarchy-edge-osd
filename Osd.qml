@@ -6,6 +6,7 @@ import qs.Commons
 import qs.Commons as Commons
 import qs.Ui
 import "OsdModel.js" as OsdModel
+import "nihil" as Nihil
 
 Item {
   id: root
@@ -30,7 +31,8 @@ Item {
   readonly property string home: Quickshell.env("HOME")
   function cfg(key, def) { var v = edgeConfig[key]; return v === undefined || v === null ? def : v }
   readonly property string edgeStyle: String(cfg("osdStyle", "edge"))
-  readonly property bool useEdge: edgeStyle === "edge" && hasProgress && !mediaOsd
+  readonly property bool nihilOsd: edgeStyle === "nihil"
+  readonly property bool useEdge: (edgeStyle === "edge" || nihilOsd) && hasProgress && !mediaOsd
   FileView {
     path: root.home + "/.config/omarchy/osd.json"
     watchChanges: true
@@ -51,6 +53,7 @@ Item {
   EdgeOsd {
     osd: root
     style: edgeStyleSpec
+    nihil: root.nihilOsd
     side: String(root.cfg("osdSide", "right"))
     align: String(root.cfg("osdAlign", "center"))
     size: String(root.cfg("osdSize", "normal"))
@@ -188,9 +191,11 @@ Item {
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.bottom: parent.bottom
       anchors.bottomMargin: Style.space(67)
-      color: Util.alpha(Commons.Color.background, 0.97)
-      borderSpec: Border.surfaceSpec("popups", "border", Commons.Color.popups.border, Math.max(1, Style.space(2)))
-      radius: Style.cornerRadius
+      color: root.nihilOsd ? Nihil.Palette.bg : Util.alpha(Commons.Color.background, 0.97)
+      borderSpec: root.nihilOsd
+        ? Border.flat(Nihil.Palette.line, 1)
+        : Border.surfaceSpec("popups", "border", Commons.Color.popups.border, Math.max(1, Style.space(2)))
+      radius: root.nihilOsd ? 18 : Style.cornerRadius
       opacity: root.opened ? 1 : 0
 
       Row {

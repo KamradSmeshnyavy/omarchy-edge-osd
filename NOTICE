@@ -1,0 +1,10 @@
+Third-party attributions for kamradsmeshnyavy.osd:
+
+- Base OSD implementation (`omarchy.osd`):
+  Copyright (c) David Heinemeier Hansson / Basecamp (Omarchy, https://github.com/basecamp/omarchy)
+  Licensed under the MIT License.
+
+- NIHIL 16-LED hardware edge OSD (`osdStyle: "nihil"` in `Osd.qml` / `EdgeOsd.qml`):
+  Adapted from Nihil-Shell (https://github.com/poligle/Nihil-Shell)
+  Copyright (c) 2026 Pol Iglesias
+  Licensed under the MIT License.
