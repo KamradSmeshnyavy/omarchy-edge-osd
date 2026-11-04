@@ -31,8 +31,8 @@ Item {
   readonly property string home: Quickshell.env("HOME")
   function cfg(key, def) { var v = edgeConfig[key]; return v === undefined || v === null ? def : v }
   readonly property string edgeStyle: String(cfg("osdStyle", "edge"))
-  readonly property bool nihilOsd: edgeStyle === "dotmatrix"
-  readonly property bool useEdge: (edgeStyle === "edge" || nihilOsd) && hasProgress && !mediaOsd
+  readonly property bool dotmatrixOsd: edgeStyle === "dotmatrix"
+  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd
   FileView {
     path: root.home + "/.config/omarchy/osd.json"
     watchChanges: true
@@ -53,7 +53,7 @@ Item {
   EdgeOsd {
     osd: root
     style: edgeStyleSpec
-    dotmatrix: root.nihilOsd
+    dotmatrix: root.dotmatrixOsd
     side: String(root.cfg("osdSide", "right"))
     align: String(root.cfg("osdAlign", "center"))
     size: String(root.cfg("osdSize", "normal"))
@@ -191,11 +191,11 @@ Item {
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.bottom: parent.bottom
       anchors.bottomMargin: Style.space(67)
-      color: root.nihilOsd ? DotMatrix.Palette.bg : Util.alpha(Commons.Color.background, 0.97)
-      borderSpec: root.nihilOsd
+      color: root.dotmatrixOsd ? DotMatrix.Palette.bg : Util.alpha(Commons.Color.background, 0.97)
+      borderSpec: root.dotmatrixOsd
         ? Border.flat(DotMatrix.Palette.line, 1)
         : Border.surfaceSpec("popups", "border", Commons.Color.popups.border, Math.max(1, Style.space(2)))
-      radius: root.nihilOsd ? 18 : Style.cornerRadius
+      radius: root.dotmatrixOsd ? 18 : Style.cornerRadius
       opacity: root.opened ? 1 : 0
 
       Row {
