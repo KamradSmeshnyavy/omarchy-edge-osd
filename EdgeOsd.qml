@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Wayland
 import qs.Commons
 import qs.Commons as Commons
-import "nihil" as Nihil
+import "dotmatrix" as DotMatrix
 
 // edge: OSD со шкалой (громкость, яркость, микрофон) — вертикальный слайдер у края экрана
 // (идея caelestia, написано с нуля). Вид — BarStyle (style):
@@ -17,7 +17,7 @@ PanelWindow {
 
   required property var osd          // корень Osd.qml: opened, icon, value, maxValue, message
   required property var style        // BarStyle.qml
-  property bool nihil: false
+  property bool dotmatrix: false
   property string side: "right"      // right | left
   property string align: "center"    // center | top | bottom — вдоль края
   property string size: "normal"     // compact | normal | large
@@ -25,13 +25,13 @@ PanelWindow {
 
   readonly property bool attached: style.attached
   readonly property real k: size === "compact" ? 0.8 : size === "large" ? 1.25 : 1
-  readonly property int thickness: Math.round((nihil ? 64 : 54) * k)
-  readonly property int length: Math.round((nihil ? 300 : 250) * k)
+  readonly property int thickness: Math.round((dotmatrix ? 64 : 54) * k)
+  readonly property int length: Math.round((dotmatrix ? 300 : 250) * k)
   readonly property int flare: attached ? style.flare : 0
-  readonly property int bodyRadius: nihil ? 18 : style.cornerRadius
-  // NIHIL: the drawer erases the frame's side hairline — only a framed bar has one.
-  readonly property int seamOverlap: nihil && attached && style.shape === "frame" ? 2 : 0
-  readonly property color hairline: style.borderWidth > 0 ? style.borderColor : Nihil.Palette.line
+  readonly property int bodyRadius: dotmatrix ? 18 : style.cornerRadius
+  // DOT-MATRIX: the drawer erases the frame's side hairline — only a framed bar has one.
+  readonly property int seamOverlap: dotmatrix && attached && style.shape === "frame" ? 2 : 0
+  readonly property color hairline: style.borderWidth > 0 ? style.borderColor : DotMatrix.Palette.line
   readonly property int edgeGap: attached ? 0 : 12
   readonly property int shadowPad: attached ? 0 : 20
   readonly property int outer: Math.max(flare, shadowPad)   // поле над и под телом
@@ -70,7 +70,7 @@ PanelWindow {
 
   // floating: карточка.
   StyleCard {
-    visible: !edge.attached && edge.style.card && !edge.nihil
+    visible: !edge.attached && edge.style.card && !edge.dotmatrix
     style: edge.style
     seed: 11
     tape: false
@@ -81,15 +81,15 @@ PanelWindow {
     radius: Math.min(edge.bodyRadius, width / 2)
   }
   Rectangle {
-    visible: !edge.attached && !(edge.style.card && !edge.nihil)
+    visible: !edge.attached && !(edge.style.card && !edge.dotmatrix)
     x: edge.bodyX
     y: edge.bodyY
     width: edge.w
     height: edge.length
     radius: Math.min(edge.bodyRadius, width / 2)
     color: edge.style.color
-    border.width: edge.nihil ? 1 : edge.style.borderWidth
-    border.color: edge.nihil ? edge.hairline : edge.style.borderColor
+    border.width: edge.dotmatrix ? 1 : edge.style.borderWidth
+    border.color: edge.dotmatrix ? edge.hairline : edge.style.borderColor
     layer.enabled: width > 1 && edge.style.shadowOn
     layer.effect: MultiEffect { shadowEnabled: true; shadowColor: "#000000"; shadowOpacity: edge.style.shadowOpacity; shadowBlur: edge.style.shadowBlur }
   }
@@ -130,8 +130,8 @@ PanelWindow {
 
     ShapePath {
       fillColor: "transparent"
-      strokeColor: edge.nihil ? edge.hairline : "transparent"
-      strokeWidth: edge.nihil && edge.w > 1 ? 1 : -1
+      strokeColor: edge.dotmatrix ? edge.hairline : "transparent"
+      strokeWidth: edge.dotmatrix && edge.w > 1 ? 1 : -1
       startX: osdShape.baseX
       startY: 0
 
@@ -153,9 +153,9 @@ PanelWindow {
     clip: true
     opacity: Math.max(0, (edge.progress - 0.4) / 0.6)
 
-    // NIHIL 16-LED vertical hardware meter + Doto Bold value
+    // DOT-MATRIX 16-LED vertical hardware meter + Doto Bold value
     Column {
-      visible: edge.nihil
+      visible: edge.dotmatrix
       width: edge.thickness
       anchors.centerIn: parent
       spacing: Math.round(14 * edge.k)
@@ -164,9 +164,9 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         textFormat: Text.PlainText
         text: edge.osd.icon
-        font.family: Nihil.Palette.fontIcon
+        font.family: DotMatrix.Palette.fontIcon
         font.pixelSize: Math.round(18 * edge.k)
-        color: edge.isMuted ? Nihil.Palette.signal : Nihil.Palette.fg
+        color: edge.isMuted ? DotMatrix.Palette.signal : DotMatrix.Palette.fg
       }
 
       Column {
@@ -184,7 +184,7 @@ PanelWindow {
             width: Math.max(4, Math.round(6 * edge.k))
             height: width
             radius: width / 2
-            color: (ledColumn.dotCount - 1 - index) < ledColumn.litDots ? Nihil.Palette.lit : Nihil.Palette.unlit
+            color: (ledColumn.dotCount - 1 - index) < ledColumn.litDots ? DotMatrix.Palette.lit : DotMatrix.Palette.unlit
             Behavior on color { ColorAnimation { duration: edge.style.ms(110) } }
           }
         }
@@ -195,15 +195,15 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         textFormat: Text.PlainText
         text: edge.isMuted ? "--" : String(Math.round(edge.ratio * 100))
-        font.family: Nihil.Palette.fontDot
+        font.family: DotMatrix.Palette.fontDot
         font.weight: Font.Bold
         font.pixelSize: Math.round(20 * edge.k)
-        color: edge.isMuted ? Nihil.Palette.muted : Nihil.Palette.fg
+        color: edge.isMuted ? DotMatrix.Palette.muted : DotMatrix.Palette.fg
       }
     }
 
     Column {
-      visible: !edge.nihil
+      visible: !edge.dotmatrix
       width: edge.thickness
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.verticalCenter: parent.verticalCenter

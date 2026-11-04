@@ -27,7 +27,7 @@ Blur under a glass OSD (Hyprland Lua config):
 
 ```jsonc
 {
-  "osdStyle": "edge",       // edge | nihil | stock
+  "osdStyle": "edge",       // edge | dotmatrix | stock
   "osdSide": "right",       // right | left
   "osdAlign": "center",     // center | top | bottom — along the edge
   "osdSize": "normal",      // compact | normal | large
