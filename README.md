@@ -39,6 +39,12 @@ Blur under a glass OSD (Hyprland Lua config):
 }
 ```
 
+**Style tokens.** `~/.config/omarchy/style.json` (written by
+[omarchy-customizer](https://github.com/KamradSmeshnyavy/omarchy-customizer) → Presets → Style) tunes the panels on top
+of the bar: `elevation` 0–2 (shadows), `motion` (animation speed multiplier, 0 — none), `material`
+(`auto` / `solid` / `glass`), `cornerScale` (0 — square corners), `typeface` (`shell` — Omarchy font, `profile` — the
+sans of `~/.config/omarchy/fonts.json`; icons always stay on the Omarchy font). No file — the look as before.
+
 Edits to the stock `Osd.qml` are marked `// edge:`. `BarStyle.qml` is shared with
 [omarchy-desktop-widgets](https://github.com/KamradSmeshnyavy/omarchy-desktop-widgets) and
 [omarchy-drawer-notifications](https://github.com/KamradSmeshnyavy/omarchy-drawer-notifications).

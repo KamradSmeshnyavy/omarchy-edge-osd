@@ -40,7 +40,7 @@ PanelWindow {
 
   property bool shown: osd.opened
   property real progress: shown ? 1 : 0
-  Behavior on progress { NumberAnimation { duration: 240; easing.type: Easing.OutCubic } }
+  Behavior on progress { NumberAnimation { duration: edge.style.ms(240); easing.type: Easing.OutCubic } }
   readonly property real w: Math.round(thickness * progress)
   readonly property bool right: side !== "left"
 
@@ -79,8 +79,8 @@ PanelWindow {
     color: edge.style.color
     border.width: edge.nihil ? 1 : edge.style.borderWidth
     border.color: edge.nihil ? edge.hairline : edge.style.borderColor
-    layer.enabled: width > 1
-    layer.effect: MultiEffect { shadowEnabled: true; shadowColor: "#000000"; shadowOpacity: 0.4; shadowBlur: 0.8 }
+    layer.enabled: width > 1 && edge.style.shadowOn
+    layer.effect: MultiEffect { shadowEnabled: true; shadowColor: "#000000"; shadowOpacity: edge.style.shadowOpacity; shadowBlur: edge.style.shadowBlur }
   }
 
   // attached: контур рисуется для правого края, у левого — зеркально.
@@ -174,7 +174,7 @@ PanelWindow {
             height: width
             radius: width / 2
             color: (ledColumn.dotCount - 1 - index) < ledColumn.litDots ? Nihil.Palette.lit : Nihil.Palette.unlit
-            Behavior on color { ColorAnimation { duration: 110 } }
+            Behavior on color { ColorAnimation { duration: edge.style.ms(110) } }
           }
         }
       }
@@ -202,7 +202,7 @@ PanelWindow {
         visible: edge.showValue
         anchors.horizontalCenter: parent.horizontalCenter
         text: edge.osd.message
-        font.family: Style.font.family
+        font.family: edge.style.fontFamily
         font.pixelSize: Math.round(12 * edge.k)
         font.bold: true
         color: Commons.Color.popups.text
@@ -220,7 +220,7 @@ PanelWindow {
           radius: width / 2
           height: parent.height * Math.max(0, Math.min(1, edge.osd.value / Math.max(1, edge.osd.maxValue)))
           color: Commons.Color.accent
-          Behavior on height { enabled: edge.shown; NumberAnimation { duration: 140; easing.type: Easing.OutCubic } }
+          Behavior on height { enabled: edge.shown; NumberAnimation { duration: edge.style.ms(140); easing.type: Easing.OutCubic } }
         }
       }
 
