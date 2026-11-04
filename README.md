@@ -44,10 +44,10 @@ Blur under a glass OSD (Hyprland Lua config):
 of the bar: `elevation` 0–2 (shadows), `motion` (animation speed multiplier, 0 — none), `material`
 (`auto` / `solid` / `glass`), `cornerScale` (0 — square corners), `typeface` (`shell` — Omarchy font, `profile` — the
 sans of `~/.config/omarchy/fonts.json`, `hand` — handwritten Caveat; icons always stay on the Omarchy font).
-`material: "paper"` draws floating panels as sheets of paper (`PaperCard.qml`: torn bottom edge, `texture` tile,
-tape). No file — the look as before.
+`material` `paper` / `soft` / `brutal` / `bevel` / `glow` draws floating panels with `StyleCard.qml`: a sheet of
+paper (torn edge, `texture` tile, tape), neumorphic relief, a thick border with a hard shadow, a retro bevel, neon glow. No file — the look as before.
 
-Edits to the stock `Osd.qml` are marked `// edge:`. `BarStyle.qml` and `PaperCard.qml` are shared with
+Edits to the stock `Osd.qml` are marked `// edge:`. `BarStyle.qml` and `StyleCard.qml` are shared with
 [omarchy-desktop-widgets](https://github.com/KamradSmeshnyavy/omarchy-desktop-widgets) and
 [omarchy-drawer-notifications](https://github.com/KamradSmeshnyavy/omarchy-drawer-notifications).
 

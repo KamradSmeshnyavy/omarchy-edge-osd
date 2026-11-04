@@ -69,8 +69,8 @@ PanelWindow {
   readonly property real bodyY: outer
 
   // floating: карточка.
-  PaperCard {
-    visible: !edge.attached && edge.style.paper && !edge.nihil
+  StyleCard {
+    visible: !edge.attached && edge.style.card && !edge.nihil
     style: edge.style
     seed: 11
     tape: false
@@ -81,7 +81,7 @@ PanelWindow {
     radius: Math.min(edge.bodyRadius, width / 2)
   }
   Rectangle {
-    visible: !edge.attached && !(edge.style.paper && !edge.nihil)
+    visible: !edge.attached && !(edge.style.card && !edge.nihil)
     x: edge.bodyX
     y: edge.bodyY
     width: edge.w
