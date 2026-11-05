@@ -12,13 +12,30 @@ stock card. The OSD never takes clicks.
 ## Install
 
 ```sh
-git clone https://github.com/KamradSmeshnyavy/omarchy-edge-osd ~/.config/omarchy/plugins/kamradsmeshnyavy.osd
-omarchy-shell shell rescanPlugins
-omarchy plugin enable kamradsmeshnyavy.osd        # back to stock: omarchy plugin enable omarchy.osd
+omarchy plugin add https://github.com/KamradSmeshnyavy/omarchy-edge-osd --enable
+omarchy restart shell
 ```
 
 Blur under a glass OSD (Hyprland Lua config):
 `hl.layer_rule({ match = { namespace = "omarchy-osd" }, blur = true, ignore_alpha = 0.2 })`.
+
+## Requirements
+
+Omarchy 4 (Quattro) with its shell. Tested on Omarchy 4.0.6 with Quickshell 0.3.2.
+
+- Nothing beyond Omarchy.
+- Optional: the [Customizer](https://github.com/KamradSmeshnyavy/omarchy-customizer) — its Style presets (Flat, Glass, Fluent, DOT-MATRIX) write `~/.config/omarchy/style.json`, which this plugin follows; without it the defaults are used.
+- DOT-MATRIX designs use the fonts shipped with the [Customizer](https://github.com/KamradSmeshnyavy/omarchy-customizer) (Doto, Space Grotesk, Space Mono); without them they fall back to the Omarchy font.
+
+## Uninstall
+
+```sh
+omarchy plugin enable omarchy.osd      # switch back to the stock one first
+omarchy plugin remove kamradsmeshnyavy.osd
+omarchy restart shell
+```
+
+Your settings stay in `~/.config/omarchy/osd.json` — delete them by hand if you don't need them.
 
 ## Settings
 

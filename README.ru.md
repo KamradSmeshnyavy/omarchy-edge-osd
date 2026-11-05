@@ -11,10 +11,27 @@ OSD [Omarchy](https://omarchy.org) (клон стокового `omarchy.osd`): 
 ## Установка
 
 ```sh
-git clone https://github.com/KamradSmeshnyavy/omarchy-edge-osd ~/.config/omarchy/plugins/kamradsmeshnyavy.osd
-omarchy-shell shell rescanPlugins
-omarchy plugin enable kamradsmeshnyavy.osd        # обратно к стоку: omarchy plugin enable omarchy.osd
+omarchy plugin add https://github.com/KamradSmeshnyavy/omarchy-edge-osd --enable
+omarchy restart shell
 ```
+
+## Требования
+
+Omarchy 4 (Quattro) с его оболочкой. Проверено на Omarchy 4.0.6 и Quickshell 0.3.2.
+
+- Ничего, кроме Omarchy.
+- Необязательно: [Customizer](https://github.com/KamradSmeshnyavy/omarchy-customizer) — его стили (Flat, Glass, Fluent, DOT-MATRIX) пишут `~/.config/omarchy/style.json`, плагин их подхватывает; без него — значения по умолчанию.
+- Дизайны DOT-MATRIX используют шрифты из [Customizer](https://github.com/KamradSmeshnyavy/omarchy-customizer) (Doto, Space Grotesk, Space Mono); без них — шрифт Omarchy.
+
+## Удаление
+
+```sh
+omarchy plugin enable omarchy.osd      # сначала вернуть стоковый
+omarchy plugin remove kamradsmeshnyavy.osd
+omarchy restart shell
+```
+
+Настройки остаются в `~/.config/omarchy/osd.json` — удалите их вручную, если не нужны.
 
 ## Настройки
 
