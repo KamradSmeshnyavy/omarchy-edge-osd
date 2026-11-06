@@ -9,6 +9,10 @@ glued to the edge — for example the `frame` skin of
 concave corners; otherwise it is a floating card with a gap and a shadow. Messages and media OSDs keep the
 stock card. The OSD never takes clicks.
 
+![Volume and brightness in Glass, Paper and DOT-MATRIX](screenshots/styles.webp)
+
+<!-- Demo video: repo-videos/omarchy-edge-osd.mp4 — drag it here when editing this file on GitHub -->
+
 ## Install
 
 ```sh

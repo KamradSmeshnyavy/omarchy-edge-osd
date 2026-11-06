@@ -8,6 +8,10 @@ OSD [Omarchy](https://omarchy.org) (клон стокового `omarchy.osd`): 
 углами; иначе — плавающая карточка с отступом и тенью. Сообщения и медиа-OSD остаются стоковой карточкой.
 Клики OSD не перехватывает.
 
+![Громкость и яркость в стилях Стекло, Бумага и DOT-MATRIX](screenshots/styles.webp)
+
+<!-- Demo video: repo-videos/omarchy-edge-osd.mp4 — drag it here when editing this file on GitHub -->
+
 ## Установка
 
 ```sh
