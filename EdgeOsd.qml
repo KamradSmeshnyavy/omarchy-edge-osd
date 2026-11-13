@@ -72,6 +72,7 @@ PanelWindow {
   StyleCard {
     visible: !edge.attached && edge.style.card && !edge.dotmatrix
     style: edge.style
+    glassLayer: "omarchy-osd"
     seed: 11
     tape: false
     x: edge.bodyX
