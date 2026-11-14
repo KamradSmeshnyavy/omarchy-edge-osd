@@ -32,7 +32,12 @@ PanelWindow {
   // DOT-MATRIX: the drawer erases the frame's side hairline — only a framed bar has one.
   readonly property int seamOverlap: dotmatrix && attached && style.shape === "frame" ? 2 : 0
   readonly property color hairline: style.borderWidth > 0 ? style.borderColor : DotMatrix.Palette.line
-  readonly property int edgeGap: attached ? 0 : 12
+  // edge: слияние с баром / рамкой (как у Vitreus): у сливающейся кромки (MergeInfo) жидкая карточка встаёт вплотную и
+  // заходит в рамку на mergeExt px (окно — тоже, отрицательным отступом), углы у кромки вогнутые
+  MergeInfo { id: mi }
+  readonly property bool merge: !attached && !dotmatrix && style.card && style.material === "liquid" && mi.has(side === "left" ? "left" : "right")
+  readonly property int mergeExt: merge ? 3 : 0
+  readonly property int edgeGap: attached || merge ? 0 : 12
   readonly property int shadowPad: attached ? 0 : 20
   readonly property int outer: Math.max(flare, shadowPad)   // поле над и под телом
   readonly property bool isMuted: osd.iconKey.indexOf("mute") !== -1 || osd.value <= 0
@@ -49,13 +54,13 @@ PanelWindow {
   anchors.left: !right
   anchors.top: align === "top"
   anchors.bottom: align === "bottom"
-  margins.right: right ? -seamOverlap : 0
-  margins.left: !right ? -seamOverlap : 0
+  margins.right: right ? -seamOverlap - mergeExt : 0
+  margins.left: !right ? -seamOverlap - mergeExt : 0
   margins.top: align === "top" ? 40 : 0
   margins.bottom: align === "bottom" ? 40 : 0
   exclusionMode: ExclusionMode.Normal
   exclusiveZone: 0
-  implicitWidth: thickness + edgeGap + shadowPad + seamOverlap
+  implicitWidth: thickness + edgeGap + shadowPad + seamOverlap + mergeExt
   implicitHeight: length + 2 * outer
   color: "transparent"
   surfaceFormat.opaque: false
@@ -65,7 +70,7 @@ PanelWindow {
   mask: Region {}
 
   // Тело в координатах окна: для правого края — у правой стороны, для левого — зеркально.
-  readonly property real bodyX: right ? width - seamOverlap - edgeGap - w : seamOverlap + edgeGap
+  readonly property real bodyX: right ? width - seamOverlap - mergeExt - edgeGap - w : seamOverlap + mergeExt + edgeGap
   readonly property real bodyY: outer
 
   // floating: карточка.
@@ -80,6 +85,14 @@ PanelWindow {
     width: edge.w
     height: edge.length
     radius: Math.min(edge.bodyRadius, width / 2)
+    mergeEdges: edge.merge && edge.progress > 0.5 ? [edge.right ? "right" : "left"] : []
+    mergeFillet: 14
+    readonly property real fe: 20
+    glassBleed: edge.merge ? fe + 10 : 0
+    glassJoin: !edge.merge ? Qt.rect(0, 0, 0, 0) : edge.right ? Qt.rect(width, -fe, 5, height + 2 * fe) : Qt.rect(-5, -fe, 5, height + 2 * fe)
+    glassJoinK: edge.merge ? 14 : 0
+    glassJoinRadius: 0
+    glassCut: !edge.merge ? Qt.rect(0, 0, 0, 0) : edge.right ? Qt.rect(width + 3, -4000, 4000, 8000) : Qt.rect(-4000, -4000, 4000 - 3, 8000)
   }
   Rectangle {
     visible: !edge.attached && !(edge.style.card && !edge.dotmatrix)

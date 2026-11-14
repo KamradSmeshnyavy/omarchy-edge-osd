@@ -75,3 +75,5 @@ Edits to the stock `Osd.qml` are marked `// edge:`. `BarStyle.qml` and `StyleCar
 ## License
 
 MIT (includes the stock Omarchy plugin it was cloned from).
+
+**Merging.** With the liquid style the slider sits flush against a frame / full-edge bar edge and joins it (concave corners; plastic bases drop the outline there, glass gets a neck) — `MergeInfo.qml` reads the bar geometry from `$XDG_RUNTIME_DIR/omarchy-bar-geom.json`.
