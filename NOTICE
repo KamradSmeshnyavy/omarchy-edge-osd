@@ -8,3 +8,6 @@ Third-party attributions for kamradsmeshnyavy.osd:
   Adapted from Nihil-Shell (https://github.com/poligle/Nihil-Shell)
   Copyright (c) 2026 Pol Iglesias
   Licensed under the MIT License.
+
+- Space OSD (`SpaceOsd.qml`, `osdStyle: "space"`): own code, design after the OSD of the Space style of
+  elifouts/Dotfiles (https://github.com/elifouts/Dotfiles, GPL-3.0, Copyright (c) Eli Fouts) — no code copied.

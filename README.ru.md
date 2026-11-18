@@ -40,7 +40,7 @@ omarchy restart shell
 ## Настройки
 
 `~/.config/omarchy/osd.json`, применяются на лету; [Customizer](https://github.com/KamradSmeshnyavy/omarchy-customizer) —
-Окна → OSD. Ключи — в [README.md](README.md#settings): стиль (`edge` / `dotmatrix` / `stock`), край, положение вдоль края,
+Окна → OSD. Ключи — в [README.md](README.md#settings): стиль (`edge` / `dotmatrix` / `space` — квадратная плашка HUD внизу по центру из райса Space / `stock`), край, положение вдоль края,
 размер, процент, время показа, «следовать стилю бара», режим прилипания, свой фон / альфа / скругление.
 
 Правки стокового `Osd.qml` помечены `// edge:`.
