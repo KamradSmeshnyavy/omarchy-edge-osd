@@ -23,7 +23,7 @@ Item {
   readonly property bool mediaOsd: iconKey.indexOf("media") === 0 || iconKey.indexOf("player") === 0
 
   // edge: настройки из ~/.config/omarchy/osd.json (Customizer → Окна → OSD):
-  //   osdStyle edge|stock, osdSide right|left, osdAlign center|top|bottom, osdSize compact|normal|large,
+  //   osdStyle edge|dotmatrix|space|stock, osdSide right|left, osdAlign center|top|bottom, osdSize compact|normal|large,
   //   osdShowValue, osdTimeout (мс, -1 — как в стоке), osdFollowBar, osdAttach auto|attached|floating,
   //   osdBackground / osdAlpha / osdRadius — когда не следуем бару.
   // В стиле edge OSD со шкалой выезжает из края экрана (EdgeOsd.qml), остальные — стоковая карточка.
@@ -32,7 +32,9 @@ Item {
   function cfg(key, def) { var v = edgeConfig[key]; return v === undefined || v === null ? def : v }
   readonly property string edgeStyle: String(cfg("osdStyle", "edge"))
   readonly property bool dotmatrixOsd: edgeStyle === "dotmatrix"
-  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd
+  // space: плашка райса Space внизу по центру (SpaceOsd.qml) — для всех OSD, со шкалой и без
+  readonly property bool spaceOsd: edgeStyle === "space"
+  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd && !spaceOsd
   FileView {
     path: root.home + "/.config/omarchy/osd.json"
     watchChanges: true
@@ -59,6 +61,11 @@ Item {
     size: String(root.cfg("osdSize", "normal"))
     showValue: root.cfg("osdShowValue", true) !== false
     shown: root.opened && root.useEdge
+  }
+
+  SpaceOsd {
+    osd: root
+    shown: root.opened && root.spaceOsd
   }
 
   // The card is built out of measured columns instead of fixed widths, so it
@@ -173,7 +180,7 @@ Item {
 
   PanelWindow {
     id: panel
-    visible: root.opened && !root.useEdge  // edge: шкалы показывает EdgeOsd
+    visible: root.opened && !root.useEdge && !root.spaceOsd  // edge: шкалы показывает EdgeOsd, space — SpaceOsd
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
     WlrLayershell.namespace: "omarchy-osd"
