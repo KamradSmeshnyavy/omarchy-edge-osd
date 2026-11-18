@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 import qs.Commons as Commons
 
@@ -17,7 +18,17 @@ PanelWindow {
   readonly property color fg: Commons.Color.foreground
   readonly property color bg: Commons.Color.background
   function a(c, k) { return Qt.rgba(c.r, c.g, c.b, k) }
-  readonly property string term: Qt.fontFamilies().indexOf("Terminess Nerd Font Mono") !== -1 ? "Terminess Nerd Font Mono" : "monospace"
+  // шрифт и размер — свои из панели настроек (crt.json → ui, его retro.font / retro.size), иначе Terminess 14
+  property string uiFont: ""
+  property int uiSize: 0
+  FileView {
+    path: Quickshell.env("HOME") + "/.config/omarchy/crt.json"
+    watchChanges: true
+    printErrors: false
+    onFileChanged: reload()
+    onLoaded: { try { var u = JSON.parse(text()).ui || {}; so.uiFont = String(u.font || ""); so.uiSize = Number(u.size) || 0 } catch (e) {} }
+  }
+  readonly property string term: uiFont !== "" ? uiFont : Qt.fontFamilies().indexOf("Terminess Nerd Font Mono") !== -1 ? "Terminess Nerd Font Mono" : "monospace"
 
   readonly property real full: osd.hasProgress ? 300 : Math.min(440, Math.max(220, 80 + label.implicitWidth))
   readonly property bool muted: /mute|off/.test(osd.iconKey)
