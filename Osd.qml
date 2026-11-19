@@ -36,7 +36,9 @@ Item {
   readonly property bool spaceOsd: edgeStyle === "space"
   // crt: плашка райса Retro CRT внизу по центру (CrtOsd.qml), включается как трубка
   readonly property bool crtOsd: edgeStyle === "crt"
-  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd && !spaceOsd && !crtOsd
+  // modern: скруглённая плашка райса Modern внизу по центру (ModernOsd.qml)
+  readonly property bool modernOsd: edgeStyle === "modern"
+  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd && !spaceOsd && !crtOsd && !modernOsd
   FileView {
     path: root.home + "/.config/omarchy/osd.json"
     watchChanges: true
@@ -73,6 +75,11 @@ Item {
   CrtOsd {
     osd: root
     shown: root.opened && root.crtOsd
+  }
+
+  ModernOsd {
+    osd: root
+    shown: root.opened && root.modernOsd
   }
 
   // The card is built out of measured columns instead of fixed widths, so it
@@ -187,7 +194,7 @@ Item {
 
   PanelWindow {
     id: panel
-    visible: root.opened && !root.useEdge && !root.spaceOsd && !root.crtOsd  // edge: шкалы показывает EdgeOsd, space — SpaceOsd, crt — CrtOsd
+    visible: root.opened && !root.useEdge && !root.spaceOsd && !root.crtOsd && !root.modernOsd  // edge: шкалы показывает EdgeOsd, space — SpaceOsd, crt — CrtOsd
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
     WlrLayershell.namespace: "omarchy-osd"
