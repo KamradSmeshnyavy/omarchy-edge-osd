@@ -11,5 +11,7 @@ Third-party attributions for kamradsmeshnyavy.osd:
 
 - Space OSD (`SpaceOsd.qml`, `osdStyle: "space"`): own code, design after the OSD of the Space style of
   elifouts/Dotfiles (https://github.com/elifouts/Dotfiles, GPL-3.0, Copyright (c) Eli Fouts) — no code copied.
+- Modern OSD (`ModernOsd.qml`, `osdStyle: "modern"`): own code, design after shared/OsdShared.qml with the Modern
+  theme of elifouts/Dotfiles (GPL-3.0).
 - Retro CRT OSD (`CrtOsd.qml`, `osdStyle: "crt"`): own code, design after the OSD of the Retro style of
   elifouts/Dotfiles (same source and licence) and the tube switch-on of its `Retro/common/Tube.qml`.

@@ -7,7 +7,7 @@ brightness and microphone levels are a vertical slider that slides out of the sc
 glued to the edge — for example the `frame` skin of
 [omarchy-bar-skins](https://github.com/KamradSmeshnyavy/omarchy-bar-skins) — it grows out of the frame with
 concave corners; otherwise it is a floating card with a gap and a shadow. Messages and media OSDs keep the
-stock card. `osdStyle: "crt"` (the Retro CRT rice, same source) is a 300 px plate at the bottom centre with a scale of cells that switches on like a tube. `osdStyle: "space"` (the Space rice, design after [elifouts/Dotfiles](https://github.com/elifouts/Dotfiles)) is a square HUD plate at the bottom centre that grows out of a 52 px dot: accent icon, a thin bar with a square knob, an uppercase readout. The OSD never takes clicks.
+stock card. `osdStyle: "modern"` (the Modern rice, after his OsdShared with the Modern theme) is a rounded glass plate at the bottom centre: accent icon, a 4 px accent bar with a round knob, the value on the right. `osdStyle: "crt"` (the Retro CRT rice, same source) is a 300 px plate at the bottom centre with a scale of cells that switches on like a tube. `osdStyle: "space"` (the Space rice, design after [elifouts/Dotfiles](https://github.com/elifouts/Dotfiles)) is a square HUD plate at the bottom centre that grows out of a 52 px dot: accent icon, a thin bar with a square knob, an uppercase readout. The OSD never takes clicks.
 
 ![Volume and brightness in Glass, Paper and DOT-MATRIX](screenshots/styles.webp)
 
@@ -48,7 +48,7 @@ Your settings stay in `~/.config/omarchy/osd.json` — delete them by hand if yo
 
 ```jsonc
 {
-  "osdStyle": "edge",       // edge | dotmatrix | space | crt | stock
+  "osdStyle": "edge",       // edge | dotmatrix | space | crt | modern | stock
   "osdSide": "right",       // right | left
   "osdAlign": "center",     // center | top | bottom — along the edge
   "osdSize": "normal",      // compact | normal | large
