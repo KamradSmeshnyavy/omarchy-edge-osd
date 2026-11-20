@@ -101,8 +101,18 @@ PanelWindow {
       width: vo.body.width + (vo.merge ? 20 : 0); height: parent.height
       radius: vo.radiusNow
       color: vo.bg
-      border.width: vo.style.base === "milk" ? 0 : 2
-      border.color: vo.ink
+      border.width: vo.style.base === "milk" ? 0 : vo.style.base === "uwu" ? 3 : 2
+      border.color: vo.style.base === "uwu" ? Qt.darker(vo.ink, 1.45) : vo.ink
+      // UwU — его «конфетный пластик»
+      gradient: vo.style.base === "uwu" ? candy : null
+      Gradient {
+        id: candy
+        orientation: Gradient.Horizontal
+        GradientStop { position: 0; color: "#ffb3dc" }
+        GradientStop { position: 0.38; color: "#cfc4ff" }
+        GradientStop { position: 0.68; color: "#aab4ff" }
+        GradientStop { position: 1; color: "#ffd0ea" }
+      }
     }
   }
   Repeater {
