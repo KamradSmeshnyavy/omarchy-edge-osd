@@ -38,7 +38,9 @@ Item {
   readonly property bool crtOsd: edgeStyle === "crt"
   // modern: скруглённая плашка райса Modern внизу по центру (ModernOsd.qml)
   readonly property bool modernOsd: edgeStyle === "modern"
-  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd && !spaceOsd && !crtOsd && !modernOsd
+  // vitreus: капля-ящик из правой кромки рамки с плашкой Vitreus (VitreusOsd.qml) — для всех OSD
+  readonly property bool vitreusOsd: edgeStyle === "vitreus"
+  readonly property bool useEdge: (edgeStyle === "edge" || dotmatrixOsd) && hasProgress && !mediaOsd && !spaceOsd && !crtOsd && !modernOsd && !vitreusOsd
   FileView {
     path: root.home + "/.config/omarchy/osd.json"
     watchChanges: true
@@ -80,6 +82,12 @@ Item {
   ModernOsd {
     osd: root
     shown: root.opened && root.modernOsd
+  }
+
+  VitreusOsd {
+    osd: root
+    style: edgeStyleSpec
+    shown: root.opened && root.vitreusOsd
   }
 
   // The card is built out of measured columns instead of fixed widths, so it
@@ -194,7 +202,7 @@ Item {
 
   PanelWindow {
     id: panel
-    visible: root.opened && !root.useEdge && !root.spaceOsd && !root.crtOsd && !root.modernOsd  // edge: шкалы показывает EdgeOsd, space — SpaceOsd, crt — CrtOsd
+    visible: root.opened && !root.useEdge && !root.spaceOsd && !root.crtOsd && !root.modernOsd && !root.vitreusOsd  // edge: шкалы показывает EdgeOsd, space — SpaceOsd, crt — CrtOsd
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
     WlrLayershell.namespace: "omarchy-osd"
